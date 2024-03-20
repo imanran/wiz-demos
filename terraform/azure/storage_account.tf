@@ -7,6 +7,6 @@ resource "azurerm_storage_account" "example_storage_account" {
 }
 
 resource "azurerm_resource_group" "example_resource_group_for_storage" {
-  name     = "example-resource-group-for-storage"
+  name     = "examplie-resource-group-for-storage"
   location = "West US 2"
 }
