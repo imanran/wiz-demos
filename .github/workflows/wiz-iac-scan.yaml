@@ -14,20 +14,25 @@ on:
     branches:
     - main
     paths:
-    - 'terraform/aws/example.tf'
+      - 'terraform/*'
+  push:
+    branches:
+    - 'main'
+    paths:
+    - 'terraform/*'
   workflow_dispatch:
 
 jobs:
-  wiz-iac-scan:
+  wiz-iac-scan-az:
     name: 'WizCLI IaC Scan'
-    env:
-      SCAN_PATH: 'terraform/aws/example.tf'
-      CICD_IAC_POLICIES: 'SecCloudDev-Demo-Block-s3-Example,SecCloudDev-Demo-Block-Secrets'
-
     defaults:
       run:
         shell: bash
     runs-on: ubuntu-latest
+    environment: iman@wiz
+    env:
+      SCAN_PATH: 'terraform/azure'
+      CICD_IAC_POLICIES: '"[Iman] Audit IaC policy","[Iman] Blocking IaC policy"'
 
     steps:
     - name: Checkout Repository
@@ -35,14 +40,11 @@ jobs:
 
     - name: Download WizCLI
       run: |
-        curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
+        curl -sLo wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
 
     - name: Authenticate to Wiz
       run: |
-        ./wizcli auth --id "${WIZ_CLIENT_ID}" --secret "${WIZ_CLIENT_SECRET}"
-      env:
-        WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-        WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+        ./wizcli auth --id "${{ vars.WIZ_CLIENT_ID }}" --secret "${{ secrets.WIZ_CLIENT_SECRET }}"
 
     - name: Run WizCLI IaC Scan
       run: |

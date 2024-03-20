@@ -1,0 +1,26 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - script: |
+      terraform init
+      terraform validate
+    displayName: "Terraform Init and Validate"
+
+  - task: wiz@0
+    inputs:
+      command: "iac"
+      clientid: $(WIZ_CLIENT_ID)
+      secret: $(WIZ_CLIENT_SECRET)
+      succeedOnFailures: false
+      policyHitsOnly: false
+      scanTags: "cicd=ado,app=terraform"
+      path: "."
+      scanSecrets: true
+
+  - script: |
+      terraform plan -out=tfplan
+    displayName: "Terraform Plan"

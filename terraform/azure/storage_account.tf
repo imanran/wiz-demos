@@ -1,7 +1,3 @@
-# Terraform Registry Example
-#
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account
-
 resource "azurerm_storage_account" "example_storage_account" {
   name                     = "examplestorageaccount"
   account_tier             = "Standard"
