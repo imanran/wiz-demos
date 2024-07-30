@@ -18,6 +18,7 @@ steps:
       succeedOnFailures: false
       policyHitsOnly: false
       scanTags: "cicd=ado,app=terraform"
+      scanPolicies: "[Iman] Blocking IaC policy"
       path: "."
       scanSecrets: true
 
