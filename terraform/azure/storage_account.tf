@@ -11,4 +11,4 @@ resource "azurerm_resource_group" "example_resource_group_for_storage" {
   location = "West US 2"
 }
 
-# Forcing a build.
+# Forcing a build again!

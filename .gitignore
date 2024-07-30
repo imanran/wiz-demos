@@ -9,7 +9,5 @@ __pycache__/
 *.tfvars
 
 *.conf
-*.json
 *.xls
 *.tab
-*.txt
